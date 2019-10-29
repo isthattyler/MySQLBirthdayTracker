@@ -11,6 +11,7 @@ class MySQLConnector:
         self.db = db
         self.database = None
         self.cur = None
+        self.result = None
     
     def _connect(self):
         self.database = MySQLdb.connect(host=self.host,
@@ -29,10 +30,12 @@ class MySQLConnector:
         else:
             self.cur.execute(strquery)
         self.database.commit() # need to commit data to the database
+        self.result = self.cur.fetchall()
+        return self.result # return to see if the result is empty
 
     def __str__(self):
         sol = "\n"
-        for row in self.cur.fetchall():
+        for row in self.result:
             for col in row:
                 sol += str(col) + " "
             sol += "\n"
@@ -41,7 +44,7 @@ class MySQLConnector:
     def __len__(self):
         return len(self.cur.fetchall())
 
-# db = MySQLConnector('localhost', 'isthattyler','LoudMaple7@', 'BirthdayTracker' )
+# db = MySQLConnector('127.0.0.1', 'test','MyPassword1!', 'BirthdayTracker' )
 
 # db._connect()
 # createTable = ("CREATE TABLE IF NOT EXISTS Birthday "
@@ -55,7 +58,7 @@ class MySQLConnector:
 #             "(Fname, Lname, Bdate, PhoneNum) "
 #             "VALUES (%s, %s, %s, %s);")
 
-# data = ('Luyen', 'Tran', date(1968, 3, 12), '8607960526')
+# data = ('Hao', 'Doan', '1997-12-05', '8609609397')
 # sample2 = ('SELECT' '*' "FROM Birthday")
 
 # birthday = ("SELECT *, YEAR(CURDATE()) - YEAR(Bdate) AS age FROM Birthday;")
@@ -64,5 +67,5 @@ class MySQLConnector:
 #                     "FROM Birthday "
 #                     "WHERE Fname=%s AND Lname=%s;")
 # name = ('Hao', 'Doan')
-# db._query(age, name)
-# print(len(db))
+# db._query(sample2)
+# print(db)
