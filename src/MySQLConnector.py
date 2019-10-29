@@ -41,7 +41,7 @@ class MySQLConnector:
     def __len__(self):
         return len(self.cur.fetchall())
 
-# db = MySQLConnector('localhost', 'isthattyler','LoudMaple7@', 'BirthdayTracker' )
+# db = MySQLConnector('localhost', 'isthattyler','#####', 'BirthdayTracker' )
 
 # db._connect()
 # createTable = ("CREATE TABLE IF NOT EXISTS Birthday "
